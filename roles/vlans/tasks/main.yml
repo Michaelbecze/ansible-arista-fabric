@@ -1,0 +1,5 @@
+---
+- name: Push VLAN configuration
+  arista.eos.eos_config:
+    src: vlans_leaf.j2
+  tags: vlans

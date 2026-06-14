@@ -1,0 +1,28 @@
+loopback0: 10.0.0.11/32
+loopback1: 10.0.1.11/32
+router_id: 10.0.0.11
+bgp_asn: 65001
+
+p2p_links:
+  - interface: Ethernet1
+    description: "P2P to spine1"
+    ip: 10.1.0.1/31
+  - interface: Ethernet2
+    description: "P2P to spine2"
+    ip: 10.1.0.7/31
+
+bgp_neighbors:
+  - peer_ip: 10.1.0.0
+    peer_asn: 65000
+    description: spine1
+  - peer_ip: 10.1.0.6
+    peer_asn: 65000
+    description: spine2
+
+vlans:
+  - id: 10
+    name: DATA
+    vni: 10010
+  - id: 20
+    name: VOICE
+    vni: 10020

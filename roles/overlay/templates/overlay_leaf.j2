@@ -1,0 +1,16 @@
+interface Vxlan1
+   vxlan source-interface Loopback1
+   vxlan udp-port 4789
+{% for vlan in vlans %}
+   vxlan vlan {{ vlan.id }} vni {{ vlan.vni }}
+{% endfor %}
+!
+router bgp {{ bgp_asn }}
+{% for vlan in vlans %}
+   vlan {{ vlan.id }}
+      rd auto
+      route-target both {{ vlan.vni }}:{{ vlan.vni }}
+      redistribute learned
+   !
+{% endfor %}
+!

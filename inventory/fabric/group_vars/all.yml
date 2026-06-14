@@ -1,0 +1,12 @@
+ansible_network_os: arista.eos.eos
+ansible_connection: ansible.netcommon.network_cli
+ansible_become: true
+ansible_become_method: enable
+ansible_user: "{{ lookup('env', 'NET_USERNAME') }}"
+ansible_password: "{{ lookup('env', 'NET_PASSWORD') }}"
+ansible_become_password: "{{ lookup('env', 'NET_PASSWORD') }}"
+
+domain_name: lab.local
+ntp_server: 192.168.0.1
+syslog_server: 192.168.0.1
+mgmt_interface: Management1

@@ -1,0 +1,23 @@
+---
+- name: Deploy common configuration to all nodes
+  hosts: fabric
+  gather_facts: false
+  roles:
+    - role: common
+      tags: common
+
+- name: Deploy underlay to all nodes
+  hosts: fabric
+  gather_facts: false
+  roles:
+    - role: underlay
+      tags: underlay
+
+- name: Deploy VLANs and VXLAN overlay to leaves
+  hosts: leaves
+  gather_facts: false
+  roles:
+    - role: vlans
+      tags: vlans
+    - role: overlay
+      tags: overlay

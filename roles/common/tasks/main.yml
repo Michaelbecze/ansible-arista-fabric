@@ -1,0 +1,5 @@
+---
+- name: Push common configuration
+  arista.eos.eos_config:
+    src: common.j2
+  tags: common

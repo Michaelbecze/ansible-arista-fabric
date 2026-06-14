@@ -1,0 +1,47 @@
+stages:
+  - validate
+  - backup
+  - deploy
+
+variables:
+  ANSIBLE_HOST_KEY_CHECKING: "False"
+  ANSIBLE_FORCE_COLOR: "True"
+
+default:
+  image: python:3.11-slim
+  before_script:
+    - pip install --quiet ansible
+    - ansible-galaxy collection install -r requirements.yml --quiet
+
+validate:
+  stage: validate
+  script:
+    - ansible-playbook playbooks/validate.yml --check --diff
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS
+      when: never
+    - if: $CI_COMMIT_BRANCH
+
+backup:
+  stage: backup
+  script:
+    - ansible-playbook playbooks/backup.yml
+  artifacts:
+    paths:
+      - backups/
+    expire_in: 30 days
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+
+deploy:
+  stage: deploy
+  script:
+    - ansible-playbook playbooks/site.yml
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+      when: manual
+  environment:
+    name: fabric
+  needs:
+    - backup

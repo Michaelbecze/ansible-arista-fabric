@@ -1,0 +1,25 @@
+loopback0: 10.0.0.1/32
+router_id: 10.0.0.1
+bgp_asn: 65000
+
+p2p_links:
+  - interface: Ethernet1
+    description: "P2P to leaf1"
+    ip: 10.1.0.0/31
+  - interface: Ethernet2
+    description: "P2P to leaf2"
+    ip: 10.1.0.2/31
+  - interface: Ethernet3
+    description: "P2P to leaf3"
+    ip: 10.1.0.4/31
+
+bgp_neighbors:
+  - peer_ip: 10.1.0.1
+    peer_asn: 65001
+    description: leaf1
+  - peer_ip: 10.1.0.3
+    peer_asn: 65002
+    description: leaf2
+  - peer_ip: 10.1.0.5
+    peer_asn: 65003
+    description: leaf3

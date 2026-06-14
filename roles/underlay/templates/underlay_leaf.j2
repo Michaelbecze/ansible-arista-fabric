@@ -1,0 +1,39 @@
+interface Loopback0
+   ip address {{ loopback0 }}
+!
+interface Loopback1
+   ip address {{ loopback1 }}
+!
+{% for link in p2p_links %}
+interface {{ link.interface }}
+   description {{ link.description }}
+   no switchport
+   ip address {{ link.ip }}
+   no shutdown
+!
+{% endfor %}
+ip routing
+!
+router bgp {{ bgp_asn }}
+   router-id {{ router_id }}
+   maximum-paths 4 ecmp 4
+   bgp log-neighbor-changes
+{% for neighbor in bgp_neighbors %}
+   neighbor {{ neighbor.peer_ip }} remote-as {{ neighbor.peer_asn }}
+   neighbor {{ neighbor.peer_ip }} description {{ neighbor.description }}
+   neighbor {{ neighbor.peer_ip }} send-community extended
+   neighbor {{ neighbor.peer_ip }} maximum-routes 12000
+{% endfor %}
+   !
+   address-family ipv4
+      network {{ loopback0 }}
+      network {{ loopback1 }}
+{% for neighbor in bgp_neighbors %}
+      neighbor {{ neighbor.peer_ip }} activate
+{% endfor %}
+   !
+   address-family evpn
+{% for neighbor in bgp_neighbors %}
+      neighbor {{ neighbor.peer_ip }} activate
+{% endfor %}
+!

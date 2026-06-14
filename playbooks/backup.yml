@@ -1,0 +1,23 @@
+---
+- name: Backup running configuration from all nodes
+  hosts: fabric
+  gather_facts: false
+
+  tasks:
+    - name: Ensure backups directory exists
+      ansible.builtin.file:
+        path: "{{ playbook_dir }}/../backups"
+        state: directory
+      delegate_to: localhost
+      run_once: true
+
+    - name: Collect running configuration
+      arista.eos.eos_command:
+        commands: show running-config
+      register: running_config
+
+    - name: Save backup to file
+      ansible.builtin.copy:
+        content: "{{ running_config.stdout[0] }}"
+        dest: "{{ playbook_dir }}/../backups/{{ inventory_hostname }}_{{ lookup('pipe', 'date +%Y-%m-%d') }}.cfg"
+      delegate_to: localhost

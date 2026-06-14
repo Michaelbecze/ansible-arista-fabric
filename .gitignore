@@ -1,0 +1,4 @@
+backups/*.cfg
+*.retry
+__pycache__/
+.venv/

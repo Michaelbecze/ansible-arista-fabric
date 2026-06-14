@@ -1,0 +1,5 @@
+---
+- name: Push VXLAN overlay configuration
+  arista.eos.eos_config:
+    src: overlay_leaf.j2
+  tags: overlay

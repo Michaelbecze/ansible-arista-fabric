@@ -1,0 +1,25 @@
+---
+# Usage: ansible-playbook playbooks/rollback.yml -e rollback_date=2026-06-13
+- name: Rollback configuration from backup
+  hosts: fabric
+  gather_facts: false
+
+  vars:
+    backup_file: "{{ playbook_dir }}/../backups/{{ inventory_hostname }}_{{ rollback_date }}.cfg"
+
+  tasks:
+    - name: Verify backup file exists
+      ansible.builtin.stat:
+        path: "{{ backup_file }}"
+      register: backup_stat
+      delegate_to: localhost
+
+    - name: Abort if backup not found
+      ansible.builtin.fail:
+        msg: "No backup found at {{ backup_file }}. Run playbooks/backup.yml first."
+      when: not backup_stat.stat.exists
+
+    - name: Restore configuration from backup
+      arista.eos.eos_config:
+        src: "{{ backup_file }}"
+        replace: config
