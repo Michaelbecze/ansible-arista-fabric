@@ -12,6 +12,7 @@ default:
     - python3 -m venv venv
     - source venv/bin/activate
     - pip install --quiet ansible
+    - pip install paramiko
     - ansible-galaxy collection install -r requirements.yml
 
 validate:
