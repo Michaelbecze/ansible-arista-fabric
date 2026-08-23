@@ -6,7 +6,6 @@ ansible_user: "michael"
 ansible_password: "michael1"
 ansible_become_password: "michael1"
 
-domain_name: lab.local
 ntp_server: 192.168.0.1
 syslog_server: 192.168.0.1
 mgmt_interface: Management1
