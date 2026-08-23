@@ -8,8 +8,9 @@ variables:
   ANSIBLE_FORCE_COLOR: "True"
 
 default:
-  image: python:3.11-slim
   before_script:
+    - python3 -m venv venv
+    - source venv/bin/activate
     - pip install --quiet ansible
     - ansible-galaxy collection install -r requirements.yml --quiet
 

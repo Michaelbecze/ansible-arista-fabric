@@ -2,9 +2,9 @@ ansible_network_os: arista.eos.eos
 ansible_connection: ansible.netcommon.network_cli
 ansible_become: true
 ansible_become_method: enable
-ansible_user: "{{ lookup('env', 'NET_USERNAME') }}"
-ansible_password: "{{ lookup('env', 'NET_PASSWORD') }}"
-ansible_become_password: "{{ lookup('env', 'NET_PASSWORD') }}"
+ansible_user: "michael"
+ansible_password: "michael1"
+ansible_become_password: "michael1"
 
 domain_name: lab.local
 ntp_server: 192.168.0.1
