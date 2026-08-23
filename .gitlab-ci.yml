@@ -1,6 +1,5 @@
 stages:
   - validate
-  - backup
   - deploy
 
 variables:
@@ -24,17 +23,6 @@ validate:
     - if: $CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS
       when: never
     - if: $CI_COMMIT_BRANCH
-
-backup:
-  stage: backup
-  script:
-    - ansible-playbook playbooks/backup.yml
-  artifacts:
-    paths:
-      - backups/
-    expire_in: 30 days
-  rules:
-    - if: $CI_COMMIT_BRANCH == "main"
 
 deploy:
   stage: deploy
