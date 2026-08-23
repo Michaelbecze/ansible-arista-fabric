@@ -31,7 +31,4 @@ deploy:
   rules:
     - if: $CI_COMMIT_BRANCH == "main"
       when: manual
-  environment:
-    name: fabric
-  needs:
-    - backup
+
