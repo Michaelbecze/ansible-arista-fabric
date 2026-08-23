@@ -1,15 +1,17 @@
 ---
-- 
-  name: Restoring Base Configs
+- name: Restoring Base Configs
   hosts: fabric
   gather_facts: no
 
   tasks:
-
     - name: Rollback to saved-good config
-      cisco.ios.ios_command:
-        commands: 
-          - config replace nvram:ansible-base force
+      arista.eos.eos_command:
+        commands:
+          - config replace flash:ansible-base force
+
+    - name: Show rollback history
+      arista.eos.eos_command:
+        commands:
           - show configuration history | i rollback
       register: output
 
