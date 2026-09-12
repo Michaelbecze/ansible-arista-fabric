@@ -18,14 +18,3 @@ bgp_neighbors:
   - peer_ip: 10.1.0.10
     peer_asn: 65000
     description: spine2
-
-vlans:
-  - id: 10
-    name: DATA-1
-    vni: 10010
-  - id: 20
-    name: DATA-2
-    vni: 10020
-  - id: 30
-    name: MGMT
-    vni: 10030

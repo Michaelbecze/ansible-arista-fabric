@@ -1,1 +1,15 @@
 node_role: leaf
+
+vlans:
+  - id: 10
+    name: DATA-1
+    vni: 10010
+  - id: 20
+    name: DATA-2
+    vni: 10020
+  - id: 30
+    name: MGMT
+    vni: 10030
+  - id: 40
+    name: TEST
+    vni: 10040
