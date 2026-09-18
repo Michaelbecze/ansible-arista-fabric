@@ -11,5 +11,5 @@ vlans:
     name: MGMT
     vni: 10030
   - id: 40
-    name: TEST-TEST
+    name: TEST
     vni: 10040
