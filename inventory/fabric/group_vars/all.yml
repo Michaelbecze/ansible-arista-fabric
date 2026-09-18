@@ -2,9 +2,9 @@ ansible_network_os: arista.eos.eos
 ansible_connection: ansible.netcommon.network_cli
 ansible_become: true
 ansible_become_method: enable
-ansible_user: "michael"
-ansible_password: "michael1"
-ansible_become_password: "michael1"
+ansible_user: $ARISTA-USER
+ansible_password: $ARISTA-PASS
+ansible_become_password: $ARISTA-PASS
 
 ntp_server: 192.168.0.1
 syslog_server: 192.168.0.1
